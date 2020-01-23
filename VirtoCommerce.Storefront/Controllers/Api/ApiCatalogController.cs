@@ -1,9 +1,11 @@
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VirtoCommerce.Storefront.Infrastructure;
 using VirtoCommerce.Storefront.Model;
 using VirtoCommerce.Storefront.Model.Catalog;
 using VirtoCommerce.Storefront.Model.Common;
+using VirtoCommerce.Storefront.Model.CustomerReviews;
 using VirtoCommerce.Storefront.Model.Services;
 
 namespace VirtoCommerce.Storefront.Controllers.Api
@@ -13,10 +15,16 @@ namespace VirtoCommerce.Storefront.Controllers.Api
     public class ApiCatalogController : StorefrontControllerBase
     {
         private readonly ICatalogService _catalogService;
-        public ApiCatalogController(IWorkContextAccessor workContextAccessor, IStorefrontUrlBuilder urlBuilder, ICatalogService catalogSearchService)
+        private readonly ICustomerReviewService _customerReviewService;
+        public ApiCatalogController(
+            IWorkContextAccessor workContextAccessor,
+            IStorefrontUrlBuilder urlBuilder,
+            ICatalogService catalogSearchService,
+            ICustomerReviewService customerReviewService)
             : base(workContextAccessor, urlBuilder)
         {
             _catalogService = catalogSearchService;
+            _customerReviewService = customerReviewService;
         }
 
         // storefrontapi/catalog/search
@@ -66,6 +74,14 @@ namespace VirtoCommerce.Storefront.Controllers.Api
         public async Task<ActionResult<Category[]>> GetCategoriesByIds(string[] categoryIds, CategoryResponseGroup respGroup = CategoryResponseGroup.Full)
         {
             return await _catalogService.GetCategoriesAsync(categoryIds, respGroup);
+        }
+
+        // POST: storefrontapi/product/{id}/review
+        [HttpPost("products/{productId}/review")]
+        public async Task<IActionResult> AddReview([FromBody] ReviewRequest request)
+        {
+            await _customerReviewService.AddReviewAsync(WorkContext.CurrentUser.UserName, request);
+            return StatusCode((int)HttpStatusCode.NoContent);
         }
     }
 }

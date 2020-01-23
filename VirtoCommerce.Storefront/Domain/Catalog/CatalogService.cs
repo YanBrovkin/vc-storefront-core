@@ -360,6 +360,8 @@ namespace VirtoCommerce.Storefront.Domain
                     };
                     return _customerReviewService.SearchReviews(criteria);
                 }, 1, CustomerReviewSearchCriteria.DefaultPageSize);
+
+                product.AverageRating = Convert.ToInt32(product.CustomerReviews?.Average(r => r.Rating) ?? 0);
             }
             return Task.CompletedTask;
         }

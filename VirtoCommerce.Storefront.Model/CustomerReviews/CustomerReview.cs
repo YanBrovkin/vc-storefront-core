@@ -15,5 +15,6 @@ namespace VirtoCommerce.Storefront.Model.CustomerReviews
         public DateTime? ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+        public int? Rating { get; set; }
     }
 }

@@ -56,7 +56,8 @@ namespace VirtoCommerce.Storefront.Tests.Domain.CustomerReview
                         IsActive = reviewResult.Results[0].IsActive,
                         ModifiedBy = reviewResult.Results[0].ModifiedBy,
                         ModifiedDate = reviewResult.Results[0].ModifiedDate,
-                        ProductId = reviewResult.Results[0].ProductId
+                        ProductId = reviewResult.Results[0].ProductId,
+                        Rating = reviewResult.Results[0].Rating
                     }
                 },
                 criteria.PageNumber, criteria.PageSize, reviewResult.TotalCount.Value
@@ -92,11 +93,12 @@ namespace VirtoCommerce.Storefront.Tests.Domain.CustomerReview
                         IsActive = reviewResult.Results[0].IsActive,
                         ModifiedBy = reviewResult.Results[0].ModifiedBy,
                         ModifiedDate = reviewResult.Results[0].ModifiedDate,
-                        ProductId = reviewResult.Results[0].ProductId
+                        ProductId = reviewResult.Results[0].ProductId,
+                        Rating = reviewResult.Results[0].Rating
                     }
                 },
                 criteria.PageNumber, criteria.PageSize, reviewResult.TotalCount.Value
-                ));
+                ), options => options.ComparingByMembers<Storefront.Model.CustomerReviews.CustomerReview>());
         }
 
         [Fact]
@@ -121,7 +123,8 @@ namespace VirtoCommerce.Storefront.Tests.Domain.CustomerReview
                         IsActive = reviewResult.Results[0].IsActive,
                         ModifiedBy = reviewResult.Results[0].ModifiedBy,
                         ModifiedDate = reviewResult.Results[0].ModifiedDate,
-                        ProductId = reviewResult.Results[0].ProductId
+                        ProductId = reviewResult.Results[0].ProductId,
+                        Rating = reviewResult.Results[0].Rating
                     }
                 },
                 criteria.PageNumber, criteria.PageSize, reviewResult.TotalCount.Value
@@ -157,11 +160,12 @@ namespace VirtoCommerce.Storefront.Tests.Domain.CustomerReview
                         IsActive = reviewResult.Results[0].IsActive,
                         ModifiedBy = reviewResult.Results[0].ModifiedBy,
                         ModifiedDate = reviewResult.Results[0].ModifiedDate,
-                        ProductId = reviewResult.Results[0].ProductId
+                        ProductId = reviewResult.Results[0].ProductId,
+                        Rating = reviewResult.Results[0].Rating
                     }
                 },
                 criteria.PageNumber, criteria.PageSize, reviewResult.TotalCount.Value
-                ));
+                ), options => options.ComparingByMembers<Storefront.Model.CustomerReviews.CustomerReview>());
         }
     }
 }

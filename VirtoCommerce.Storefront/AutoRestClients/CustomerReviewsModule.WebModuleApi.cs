@@ -1197,12 +1197,13 @@ namespace VirtoCommerce.Storefront.AutoRestClients.CustomerReviewsModule.WebModu
         /// <summary>
         /// Initializes a new instance of the CustomerReview class.
         /// </summary>
-        public CustomerReview(string authorNickname = default(string), string content = default(string), bool? isActive = default(bool?), string productId = default(string), System.DateTime? createdDate = default(System.DateTime?), System.DateTime? modifiedDate = default(System.DateTime?), string createdBy = default(string), string modifiedBy = default(string), string id = default(string))
+        public CustomerReview(string authorNickname = default(string), string content = default(string), bool? isActive = default(bool?), string productId = default(string), int? rating = default(int?), System.DateTime? createdDate = default(System.DateTime?), System.DateTime? modifiedDate = default(System.DateTime?), string createdBy = default(string), string modifiedBy = default(string), string id = default(string))
         {
             AuthorNickname = authorNickname;
             Content = content;
             IsActive = isActive;
             ProductId = productId;
+            Rating = rating;
             CreatedDate = createdDate;
             ModifiedDate = modifiedDate;
             CreatedBy = createdBy;
@@ -1235,6 +1236,11 @@ namespace VirtoCommerce.Storefront.AutoRestClients.CustomerReviewsModule.WebModu
         /// </summary>
         [JsonProperty(PropertyName = "productId")]
         public string ProductId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "rating")]
+        public int? Rating { get; set; }
 
         /// <summary>
         /// </summary>
