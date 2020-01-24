@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using AutoFixture;
 using FluentAssertions;
 using VirtoCommerce.Storefront.Extensions;
@@ -26,7 +23,7 @@ namespace VirtoCommerce.Storefront.Tests.Extensions
             var newItem = randomizer.Create<TestClass>();
 
             //act
-            var result = sourceList.AddIf(condition, newItem);
+            var result = sourceList.AddIf(condition, () => newItem);
 
             //assert
             result.Should().BeEquivalentTo(new[]
@@ -53,7 +50,7 @@ namespace VirtoCommerce.Storefront.Tests.Extensions
             var newItem = randomizer.Create<TestClass>();
 
             //act
-            var result = sourceList.AddIf(condition, newItem);
+            var result = sourceList.AddIf(condition, () => newItem);
 
             //assert
             result.Should().BeEquivalentTo(new[]

@@ -130,7 +130,7 @@ namespace VirtoCommerce.Storefront.Model.Stores
         /// <summary>
         /// Enable customer reviews access
         /// </summary>
-        public bool CustomerReviewsEnabled => Settings.GetSettingValue("CustomerReviews.CustomerReviewsEnabled", false);
+        public bool CustomerReviewsEnabled { get; set; }
 
         /// <summary>
         /// This flag enables the SPA fallback routing for a store

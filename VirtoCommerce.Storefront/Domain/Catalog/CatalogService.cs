@@ -191,18 +191,18 @@ namespace VirtoCommerce.Storefront.Domain
             var taskList = new List<Task>();
             taskList
                 .AddIf(responseGroup.HasFlag(ItemResponseGroup.Inventory),
-                    LoadProductInventoriesAsync(products, workContext))
+                    () => LoadProductInventoriesAsync(products, workContext))
                 .AddIf(responseGroup.HasFlag(ItemResponseGroup.ItemAssociations),
-                    LoadProductsAssociationsAsync(products, workContext))
+                    () => LoadProductsAssociationsAsync(products, workContext))
                 .AddIf(responseGroup.HasFlag(ItemResponseGroup.ItemWithPrices),
-                    _pricingService.EvaluateProductPricesAsync(products, workContext))
+                    () => _pricingService.EvaluateProductPricesAsync(products, workContext))
                 .AddIf(responseGroup.HasFlag(ItemResponseGroup.ItemWithVendor),
-                    LoadProductVendorsAsync(products, workContext))
+                    () => LoadProductVendorsAsync(products, workContext))
                 .AddIf(workContext.CurrentStore.SubscriptionEnabled
                         && responseGroup.HasFlag(ItemResponseGroup.ItemWithPaymentPlan),
-                    LoadProductPaymentPlanAsync(products, workContext))
+                    () => LoadProductPaymentPlanAsync(products, workContext))
                 .AddIf(workContext.CurrentStore.CustomerReviewsEnabled,
-                    LoadProductCustomerReviewsAsync(products, workContext));
+                    () => LoadProductCustomerReviewsAsync(products));
 
             await Task.WhenAll(taskList);
 
@@ -339,7 +339,7 @@ namespace VirtoCommerce.Storefront.Domain
             return Task.CompletedTask;
         }
 
-        protected virtual Task LoadProductCustomerReviewsAsync(List<Product> products, WorkContext workContext)
+        private Task LoadProductCustomerReviewsAsync(List<Product> products)
         {
             if (products == null)
             {
