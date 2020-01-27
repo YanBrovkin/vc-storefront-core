@@ -76,7 +76,7 @@ namespace VirtoCommerce.Storefront.Controllers.Api
             return await _catalogService.GetCategoriesAsync(categoryIds, respGroup);
         }
 
-        // POST: storefrontapi/product/{id}/review
+        // POST: storefrontapi/products/{id}/review
         [HttpPost("products/{productId}/review")]
         public async Task<IActionResult> AddReview([FromBody] ReviewRequest request)
         {

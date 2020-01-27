@@ -52,7 +52,7 @@ namespace VirtoCommerce.Storefront.Domain.CustomerReview
                     AuthorNickname = authorNickname,
                     Content = request.Content,
                     CreatedBy = authorNickname,
-                    CreatedDate = SystemTime.Now,
+                    CreatedDate = request.CreatedDate,
                     IsActive = true,
                     ModifiedBy = authorNickname,
                     ModifiedDate = SystemTime.Now,

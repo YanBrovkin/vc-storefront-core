@@ -1,3 +1,5 @@
+using System;
+
 namespace VirtoCommerce.Storefront.Model.CustomerReviews
 {
     public class ReviewRequest
@@ -5,5 +7,6 @@ namespace VirtoCommerce.Storefront.Model.CustomerReviews
         public string Content { get; set; }
         public int Rating { get; set; }
         public string ProductId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
