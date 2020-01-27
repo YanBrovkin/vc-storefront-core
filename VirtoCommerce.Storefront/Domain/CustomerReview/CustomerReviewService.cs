@@ -61,6 +61,7 @@ namespace VirtoCommerce.Storefront.Domain.CustomerReview
                 }
             };
             await _customerReviewsApi.UpdateAsync(newReview);
+            CustomerReviewCacheRegion.ExpireRegion();
         }
     }
 }
