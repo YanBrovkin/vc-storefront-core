@@ -151,6 +151,7 @@ namespace VirtoCommerce.Storefront.Tests.Domain
             var customerReviews = new StaticPagedList<Storefront.Model.CustomerReviews.CustomerReview>(
                  reviews, criteria.PageNumber, criteria.PageSize, resultCount);
             customerReviewService.Setup(m => m.SearchReviews(It.IsAny<CustomerReviewSearchCriteria>())).Returns(customerReviews);
+            customerReviewService.Setup(m => m.GetAverageRatingAsync(It.IsAny<string>())).ReturnsAsync(3);
 
             //act
             var result = await service.GetProductsAsync(ids, responseGroup);
@@ -158,7 +159,7 @@ namespace VirtoCommerce.Storefront.Tests.Domain
             //assert
             result.Should().NotBeNull().And.HaveCount(1);
             result.ElementAt(0).CustomerReviews.Should().HaveCount(2);
-            result.ElementAt(0).AverageRating.Should().Be(2);
+            result.ElementAt(0).AverageRating.Should().Be(3);
         }
 
         [Fact]

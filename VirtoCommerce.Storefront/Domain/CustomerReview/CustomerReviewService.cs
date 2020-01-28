@@ -63,5 +63,11 @@ namespace VirtoCommerce.Storefront.Domain.CustomerReview
             await _customerReviewsApi.UpdateAsync(newReview);
             CustomerReviewCacheRegion.ExpireRegion();
         }
+
+        public async Task<int> GetAverageRatingAsync(string productId)
+        {
+            var averageRating = await _customerReviewsApi.GetAverageRatingAsync(productId);
+            return averageRating.Value;
+        }
     }
 }

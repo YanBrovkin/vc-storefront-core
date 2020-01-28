@@ -8,5 +8,6 @@ namespace VirtoCommerce.Storefront.Model.CustomerReviews
         IPagedList<CustomerReview> SearchReviews(CustomerReviewSearchCriteria criteria);
         Task<IPagedList<CustomerReview>> SearchReviewsAsync(CustomerReviewSearchCriteria criteria);
         Task AddReviewAsync(string authorNickname, ReviewRequest request);
+        Task<int> GetAverageRatingAsync(string productId);
     }
 }

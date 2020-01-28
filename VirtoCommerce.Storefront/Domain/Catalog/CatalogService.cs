@@ -339,7 +339,7 @@ namespace VirtoCommerce.Storefront.Domain
             return Task.CompletedTask;
         }
 
-        private Task LoadProductCustomerReviewsAsync(List<Product> products)
+        private async Task LoadProductCustomerReviewsAsync(List<Product> products)
         {
             if (products == null)
             {
@@ -360,10 +360,8 @@ namespace VirtoCommerce.Storefront.Domain
                     };
                     return _customerReviewService.SearchReviews(criteria);
                 }, 1, CustomerReviewSearchCriteria.DefaultPageSize);
-
-                product.AverageRating = Convert.ToInt32(product.CustomerReviews?.Average(r => r.Rating) ?? 0);
+                product.AverageRating = await _customerReviewService.GetAverageRatingAsync(product.Id);
             }
-            return Task.CompletedTask;
         }
 
         protected virtual void EstablishLazyDependenciesForCategories(IEnumerable<Category> categories)
