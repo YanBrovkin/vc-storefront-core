@@ -236,6 +236,11 @@ namespace VirtoCommerce.Storefront.Model.Catalog
         public IMutablePagedList<CustomerReview> CustomerReviews { get; set; }
 
         /// <summary>
+        /// Average review rating
+        /// </summary>
+        public int AverageRating { get; set; }
+
+        /// <summary>
         /// Current product price
         /// </summary>
         public ProductPrice Price { get; set; }

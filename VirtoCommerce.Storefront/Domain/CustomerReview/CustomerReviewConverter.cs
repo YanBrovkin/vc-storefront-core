@@ -16,7 +16,8 @@ namespace VirtoCommerce.Storefront.Domain.CustomerReview
                 IsActive = itemDto.IsActive,
                 ModifiedBy = itemDto.ModifiedBy,
                 ModifiedDate = itemDto.ModifiedDate,
-                ProductId = itemDto.ProductId
+                ProductId = itemDto.ProductId,
+                Rating = itemDto.Rating
             };
 
         public static ReviewDto.CustomerReviewSearchCriteria ToSearchCriteriaDto(this CustomerReviewSearchCriteria criteria)

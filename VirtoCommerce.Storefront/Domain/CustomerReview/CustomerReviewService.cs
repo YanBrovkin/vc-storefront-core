@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using PagedList.Core;
 using VirtoCommerce.Storefront.AutoRestClients.CustomerReviewsModule.WebModuleApi;
+using VirtoCommerce.Storefront.Helpers;
 using VirtoCommerce.Storefront.Infrastructure;
 using VirtoCommerce.Storefront.Model.Caching;
 using VirtoCommerce.Storefront.Model.Common.Caching;
@@ -39,6 +41,33 @@ namespace VirtoCommerce.Storefront.Domain.CustomerReview
                 return new StaticPagedList<Model.CustomerReviews.CustomerReview>(result.Results.Select(x => x.ToCustomerReview()),
                                                          criteria.PageNumber, criteria.PageSize, result.TotalCount.Value);
             });
+        }
+
+        public async Task AddReviewAsync(string authorNickname, ReviewRequest request)
+        {
+            var newReview = new List<AutoRestClients.CustomerReviewsModule.WebModuleApi.Models.CustomerReview>
+            {
+                new AutoRestClients.CustomerReviewsModule.WebModuleApi.Models.CustomerReview
+                {
+                    AuthorNickname = authorNickname,
+                    Content = request.Content,
+                    CreatedBy = authorNickname,
+                    CreatedDate = request.CreatedDate,
+                    IsActive = true,
+                    ModifiedBy = authorNickname,
+                    ModifiedDate = SystemTime.Now,
+                    ProductId = request.ProductId,
+                    Rating = request.Rating
+                }
+            };
+            await _customerReviewsApi.UpdateAsync(newReview);
+            CustomerReviewCacheRegion.ExpireRegion();
+        }
+
+        public async Task<int> GetAverageRatingAsync(string productId)
+        {
+            var averageRating = await _customerReviewsApi.GetAverageRatingAsync(productId);
+            return averageRating.Value;
         }
     }
 }
